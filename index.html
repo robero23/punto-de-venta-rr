@@ -1,62 +1,4 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<meta name="theme-color" content="#124c43">
-<title>R&R Negocios</title>
-<style>
-:root{--green:#176b5b;--dark:#124c43;--bg:#f3f6f7;--ink:#182522;--muted:#65736f;--line:#dce5e2;--red:#b73535}
-*{box-sizing:border-box}body{margin:0;font:15px Arial,sans-serif;background:var(--bg);color:var(--ink)}
-header{background:var(--dark);color:white;padding:18px 16px 14px;position:sticky;top:0;z-index:2}
-header strong{font-size:20px}header small{display:block;opacity:.8;margin-top:4px}
-nav{display:flex;overflow:auto;background:white;border-bottom:1px solid var(--line);position:sticky;top:67px;z-index:2}
-nav button{border:0;background:white;padding:13px 15px;white-space:nowrap;color:var(--muted);font-weight:bold}
-nav button.active{color:var(--green);border-bottom:3px solid var(--green)}
-main{padding:14px;max-width:760px;margin:auto}.panel{display:none}.panel.active{display:block}
-.card{background:white;border:1px solid var(--line);border-radius:13px;padding:14px;margin-bottom:12px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.metric{font-size:23px;font-weight:bold;margin-top:7px}.muted{color:var(--muted);font-size:13px}
-h2{font-size:18px;margin:5px 0 13px}h3{font-size:15px;margin:0 0 10px}
-input,select{width:100%;padding:12px;border:1px solid #cbd7d3;border-radius:9px;font-size:15px;background:white;margin:5px 0 10px}
-button.primary,.primary{background:var(--green);color:white;border:0;border-radius:9px;padding:12px 14px;font-weight:bold}
-button.secondary{background:#e8f1ee;color:var(--dark);border:0;border-radius:9px;padding:10px 12px;font-weight:bold}
-button.danger{background:#fff0f0;color:var(--red);border:0;border-radius:9px;padding:9px}
-button:disabled{opacity:.45}
-.row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.item{padding:11px 0;border-bottom:1px solid var(--line)}.item:last-child{border:0}
-.actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
-.full{width:100%}.price{font-weight:bold;color:var(--green)}
-.empty{text-align:center;color:var(--muted);padding:22px}
-small.note{display:block;color:var(--muted);line-height:1.45;margin-top:10px}
-@media(min-width:600px){.grid{grid-template-columns:repeat(4,1fr)}}
-</style>
-</head>
-<body>
-<header><strong>R&R Negocios</strong><small>Ventas e inventario · Modo sin internet</small></header>
-<nav>
-<button class="active" data-tab="home">Resumen</button>
-<button data-tab="sale">Nueva venta</button>
-<button data-tab="products">Productos</button>
-<button data-tab="history">Historial</button>
-</nav>
-<main>
-<section id="home" class="panel active">
-<h2>Resumen del negocio</h2>
-<div class="grid">
-<div class="card"><div class="muted">Ventas de hoy</div><div class="metric" id="todaySales">$0.00</div></div>
-<div class="card"><div class="muted">Operaciones hoy</div><div class="metric" id="todayCount">0</div></div>
-<div class="card"><div class="muted">Productos activos</div><div class="metric" id="productCount">0</div></div>
-<div class="card"><div class="muted">Valor del inventario</div><div class="metric" id="stockValue">$0.00</div></div>
-</div>
-<div class="card"><h3>Acciones rápidas</h3><div class="actions"><button class="primary" onclick="tab('sale')">Registrar venta</button><button class="secondary" onclick="tab('products')">Agregar producto</button></div></div>
-<div class="card"><h3>Respaldo de datos</h3><p class="muted">Guarda una copia de tus productos y ventas en un archivo.</p><button class="secondary" onclick="backup()">Exportar respaldo</button><small class="note">Guarda el archivo en un lugar seguro. Si borras los datos de la aplicación, podrías perder tu información.</small></div>
-</section>
-<section id="products" class="panel">
-<h2>Productos e inventario</h2>
-<div class="card">
-<h3>Agregar producto</h3>
-<label>Nombre</label><input id="pname" placeholder="Ej. Refresco 600 ml">
+ut id="pname" placeholder="Ej. Refresco 600 ml">
 <div class="grid"><div><label>Precio de venta ($)</label><input id="pprice" type="number" min="0" step=".01" placeholder="18"></div><div><label>Existencia</label><input id="pstock" type="number" min="0" step="1" placeholder="20"></div></div>
 <button class="primary full" onclick="addProduct()">Guardar producto</button>
 </div>
@@ -107,4 +49,3 @@ function backup(){download('respaldo-rr-negocios.json',JSON.stringify(data,null,
 function exportSales(){let rows=[['Fecha','Total','Pago','Articulos'],...data.sales.map(s=>[new Date(s.date).toLocaleString('es-MX'),s.total,s.payment,s.items.map(i=>`${i.name} x${i.qty}`).join(' | ')])];download('ventas-rr-negocios.csv',rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n'),'text/csv')}
 renderAll();
 </script>
-</body></html>
